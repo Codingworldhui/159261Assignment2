@@ -1,0 +1,48 @@
+
+h
+java:S1192"FDefine a constant instead of duplicating this literal "right" 4 times.(ç¥‹’ıÿÿÿÿ8µ°˜éõ1
+l	java:S117P"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Óæ”%8¿°˜éõ1
+e
+java:S2184["HCast one of the operands of this multiplication operation to a "double".(ºÈ¬Ê8¿°˜éõ1
+e
+java:S2184["HCast one of the operands of this multiplication operation to a "double".(ºÈ¬Ê8¿°˜éõ1
+j
+java:S2184]"HCast one of the operands of this multiplication operation to a "double".(¥İÊ®ÿÿÿÿÿ8¿°˜éõ1
+j
+java:S2184]"HCast one of the operands of this multiplication operation to a "double".(¥İÊ®ÿÿÿÿÿ8¿°˜éõ1
+e
+java:S2184f"HCast one of the operands of this multiplication operation to a "double".(ˆğÙµ8¿°˜éõ1
+e
+java:S2184f"HCast one of the operands of this multiplication operation to a "double".(ˆğÙµ8¿°˜éõ1
+j
+java:S2184j"HCast one of the operands of this multiplication operation to a "double".(ŠÑƒÕıÿÿÿÿ8¿°˜éõ1
+j
+java:S2184j"HCast one of the operands of this multiplication operation to a "double".(ŠÑƒÕıÿÿÿÿ8¿°˜éõ1
+e
+java:S2184u"HCast one of the operands of this multiplication operation to a "double".(ÔºÆ8¿°˜éõ1
+e
+java:S2184u"HCast one of the operands of this multiplication operation to a "double".(ÔºÆ8¿°˜éõ1
+e
+java:S2184x"HCast one of the operands of this multiplication operation to a "double".(şóî8¿°˜éõ1
+e
+java:S2184x"HCast one of the operands of this multiplication operation to a "double".(şóî8¿°˜éõ1
+e
+java:S2184~"HCast one of the operands of this multiplication operation to a "double".(‡®ƒ©8¿°˜éõ1
+e
+java:S2184~"HCast one of the operands of this multiplication operation to a "double".(‡®ƒ©8¿°˜éõ1
+|	java:S116"[Rename this field "currentFrame_Run" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™ìÄˆøÿÿÿÿ8İ°˜éõ1
+x	java:S116"\Rename this field "currentFrame_rest" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(àßÔô8İ°˜éõ1
+w	java:S116"\Rename this field "currentFrame_jump" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ø‚µ:8İ°˜éõ1
+W
+java:S1161":Add the "@Override" annotation above this method signature( Üó8İ°˜éõ1
+]	java:S125W"<This block of commented-out lines of code should be removed.(æŸøİøÿÿÿÿ8ç°˜éõ1
+j	java:S100b"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”ƒà8ç°˜éõ1
+o	java:S100o"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ôÅˆ›ûÿÿÿÿ8ç°˜éõ1
+W
+java:S1161‚":Add the "@Override" annotation above this method signature(İ¼õA8ç°˜éõ1
+M	java:S106–"+Replace this use of System.out by a logger.(óøıÿÿÿÿÿ8ç°˜éõ1
+]
+java:S1161›":Add the "@Override" annotation above this method signature(˜Â½€øÿÿÿÿ8ç°˜éõ1
+^	java:S125"<This block of commented-out lines of code should be removed.(‹ÌÇ£şÿÿÿÿ8ç°˜éõ1
+O
+java:S1128"2Remove this unused import 'java.awt.geom.Point2D'.(ˆÕ­Ü8ç°˜éõ1

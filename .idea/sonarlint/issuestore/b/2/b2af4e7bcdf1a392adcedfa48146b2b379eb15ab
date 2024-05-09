@@ -1,0 +1,61 @@
+
+¶
+java:S6539"ŸSplit this â€œMonster Classâ€ into smaller and more specialized ones to reduce its dependencies on other classes from 24 to the maximum authorized 20 or less.(¼Ì¾ù
+p
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(®õÁ¯
+y
+java:S1192ç"bDefine a constant instead of duplicating this literal "Error: could not play Audio Clip
+" 3 times.(á²¿ç
+v
+java:S1192¶"ZDefine a constant instead of duplicating this literal "Error: audioClip is null
+" 4 times.(›ë†øÿÿÿÿ
+>
+java:S1604W"(Make this anonymous inner class a lambda(ÂæÅ¬
+C
+java:S1604r"(Make this anonymous inner class a lambda(Ô¶µÿşÿÿÿÿ
+D
+java:S1604—"(Make this anonymous inner class a lambda(Ô¶µÿşÿÿÿÿ
+D
+java:S1604Õ"(Make this anonymous inner class a lambda(›××¬ûÿÿÿÿ
+t
+java:S1488è"]Immediately return this expression instead of assigning it to the temporary variable "image".(ÑÀÿà
+y
+java:S1488…"]Immediately return this expression instead of assigning it to the temporary variable "image".(àó™ùÿÿÿÿ
+s
+java:S1488¤"\Immediately return this expression instead of assigning it to the temporary variable "clip".(ƒ˜•
+^
+java:S2259½"BA "NullPointerException" could be thrown; "clip" is nullable here.(¥àúÂüÿÿÿÿ
+^
+java:S2259"BA "NullPointerException" could be thrown; "clip" is nullable here.(¥àúÂüÿÿÿÿ
+T
+java:S3516Y"9Refactor this method to not always return the same value.(œÒÊßøÿÿÿÿ
+;
+java:S1659"%Declare "mHeight" on a separate line.(°ñ¢
+@
+java:S16591"%Declare "oldTime" on a separate line.(Îºü…ûÿÿÿÿ
+P
+java:S5993"9Change the visibility of this constructor to "protected".(–°Ã¯
+l
+java:S1149©"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(§÷àåùÿÿÿÿ
+t
+java:S2142("^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(”ı¾
+^
+java:S3252L"IUse static access with "javax.swing.WindowConstants" for "EXIT_ON_CLOSE".(ø‹ğS
+Q
+java:S1161ê":Add the "@Override" annotation above this method signature(®¡òù
+F	java:S106î"+Replace this use of System.out by a logger.(Ôëê•ùÿÿÿÿ
+A	java:S106û"+Replace this use of System.out by a logger.(¢…¾
+@	java:S106"+Replace this use of System.out by a logger.(·Œê	
+@	java:S106"+Replace this use of System.out by a logger.(·Œê	
+a
+java:S2674Œ"JCheck the return value of the "read" call to see how many bytes were read.(ğƒ¬À
+F	java:S106"+Replace this use of System.out by a logger.(Ê‹©öøÿÿÿÿ
+F	java:S106ª"+Replace this use of System.out by a logger.(Ğ†ÿ ûÿÿÿÿ
+F	java:S106¶"+Replace this use of System.out by a logger.(›ë†øÿÿÿÿ
+A	java:S106Ç"+Replace this use of System.out by a logger.(•æãŒ
+F	java:S106Ğ"+Replace this use of System.out by a logger.(›ë†øÿÿÿÿ
+A	java:S106ç"+Replace this use of System.out by a logger.(á²¿ç
+F	java:S106ğ"+Replace this use of System.out by a logger.(›ë†øÿÿÿÿ
+A	java:S106‰"+Replace this use of System.out by a logger.(á²¿ç
+F	java:S106™"+Replace this use of System.out by a logger.(›ë†øÿÿÿÿ
+A	java:S106¸"+Replace this use of System.out by a logger.(á²¿ç

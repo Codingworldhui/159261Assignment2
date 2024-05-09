@@ -1,0 +1,30 @@
+
+o
+java:S1104"SMake heroImg a static final constant or non-public and provide accessors if needed.(®ö¼~8ùÏÔèõ1
+l
+java:S1104"OMake run a static final constant or non-public and provide accessors if needed.(‡¬¯¤8ìôÔèõ1
+l
+java:S1104"PMake jump a static final constant or non-public and provide accessors if needed.(©„·8îŸÕèõ1
+v
+java:S1104"YMake HeroPositionX a static final constant or non-public and provide accessors if needed.(Ó¥“8ñÒÕèõ1
+v
+java:S1104"YMake HeroPositionY a static final constant or non-public and provide accessors if needed.(Øñë†8Ï’Öèõ1
+u
+java:S1104	"YMake HeroVelocityX a static final constant or non-public and provide accessors if needed.(éøÙ.8Ï’Öèõ1
+v
+java:S1104
+"YMake HeroVelocityY a static final constant or non-public and provide accessors if needed.(¼ø¡•8Ï’Öèõ1
+r
+java:S1104"UMake is_moving a static final constant or non-public and provide accessors if needed.(¨¥Ì8òãÜèõ1
+u
+java:S1104"SMake is_left a static final constant or non-public and provide accessors if needed.(’Åşûÿÿÿÿ8òãÜèõ1
+p
+java:S1104"SMake is_jump a static final constant or non-public and provide accessors if needed.(ßğ­8òãÜèõ1
+t	java:S116"XRename this field "HeroPositionX" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ó¥“8±¼Òèõ1
+t	java:S116"XRename this field "HeroPositionY" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Øñë†8±¼Òèõ1
+s	java:S116	"XRename this field "HeroVelocityX" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(éøÙ.8±¼Òèõ1
+t	java:S116
+"XRename this field "HeroVelocityY" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¼ø¡•8±¼Òèõ1
+p	java:S116"TRename this field "is_moving" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨¥Ì8·áÚèõ1
+s	java:S116"RRename this field "is_left" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’Åşûÿÿÿÿ8·áÚèõ1
+n	java:S116"RRename this field "is_jump" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ßğ­8·áÚèõ1

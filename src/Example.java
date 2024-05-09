@@ -6,62 +6,55 @@ public class Example extends GameEngine{
     public static void main(String[] args) {
         createGame(new Example());
     }
-    Image hero;
+
     Image background;
     Image[] motionless;
-    Image[] run;
-    Image[] jump;
+
     int currentFrame_Run;
     int currentFrame_rest;
     int currentFrame_jump;
     double animTime;
-    double HeroPositionX;
-    double HeroPositionY;
-    double HeroVelocityX = 100;
-    double HeroVelocityY = 0;
+Hero littlehero = new Hero();
     double gravity = 980;
     public void init(){
-        HeroPositionX = 100;
-        HeroPositionY = 300;
+        littlehero.HeroPositionX = 100;
+        littlehero.HeroPositionY = 300;
         rest = 0;
         direction = "right";
         motionless = new Image[13];
-        run = new Image[8];
-        jump = new Image[6];
-        hero = loadImage("src/adventurer.png");
+        littlehero.run = new Image[8];
+        littlehero.jump = new Image[6];
+        littlehero.heroImg = loadImage("src/adventurer.png");
         background = loadImage("src/background1.png");
         for (int i = 0; i < 13; i++) {
-            motionless[i] = subImage(hero,32*i,0,32,32);
+            motionless[i] = subImage(littlehero.heroImg,32*i,0,32,32);
         }
         for(int j = 0;j < 8;j++){
-            run[j] = subImage(hero,32*j,32,32,32);
+            littlehero.run[j] = subImage(littlehero.heroImg,32*j,32,32,32);
         }
         //jump
         for (int k = 0; k < 6;k++){
-            jump[k] = subImage(hero,32*k,32*5,32,32);
+            littlehero.jump[k] = subImage(littlehero.heroImg,32*k,32*5,32,32);
         }
-        pos.setLocation(100,80);
     }
 
 
-    Point2D pos = new Point2D.Double();
-    boolean is_moving = false;
-    boolean is_left = false;
-    boolean is_jump = false;
+
+
     String direction;
-    private double idleTime = 5.0; // Set the wait time to 5 seconds
+    private double idleTime = 3.0; // Set the wait time to 5 seconds
     private double timeSinceStop = 0.0; // It is used to track the time elapsed after the stop
     int rest;//When the character is stationary for more than 5 seconds, the rest value is 1
     @Override
     public void update(double dt) {
         animTime += dt;
-        if(is_moving){
-            if(is_left){
-              HeroPositionX -= HeroVelocityX * dt;
+        if(littlehero.is_moving){
+            if(littlehero.is_left){
+                littlehero.HeroPositionX -= littlehero.HeroVelocityX * dt;
             }
             else
             {
-                HeroPositionX += HeroVelocityX *dt;
+                littlehero.HeroPositionX += littlehero.HeroVelocityX *dt;
             }
             currentFrame_Run = getFrame(1.0,8);
             timeSinceStop = 0.0;
@@ -72,109 +65,95 @@ public class Example extends GameEngine{
                 currentFrame_rest = getFrame(2.0,13);
             }
         }
-        if(is_jump){
-            HeroVelocityY += gravity *dt;
-            HeroPositionY += HeroVelocityY *dt;
+        if(littlehero.is_jump){
+            littlehero.HeroPositionY += littlehero.HeroVelocityY *dt;
+            littlehero.HeroVelocityY += gravity *dt;
+// 1/2 gt2
             currentFrame_jump = getFrame(0.3,6);
-            if(HeroPositionY >= 300){
-                HeroPositionY = 300;
-                is_jump = false;
+            if(littlehero.HeroPositionY >= 300){
+                littlehero.HeroPositionY = 300;
+                littlehero.is_jump = false;
             }
         }
-
-        //        }else if(is_jump){
-//            currentFrame_jump = getFrame(0.3,6);
-//            System.out.println(currentFrame_jump);
-//            if(currentFrame_jump >= 5){
-//               // is_jump = false;
-//            }else if(currentFrame_jump % 2 == 0){
-//                pos.setLocation(pos.getX(),pos.getY() - 5);
-//            }else{
-//                pos.setLocation(pos.getX(),pos.getY() + 5);
-//
-//            }
-      //  System.out.println(currentFrame);
     }
 
     public  int getFrame(double d,int num_frames){return (int)Math.floor(((animTime % d) / d) * num_frames);}
     @Override
     public void paintComponent() {
-        changeBackgroundColor(white);
-        clearBackground(500,500);
-//        drawImage(background,0,0,1000,500);
-//        drawImage(run[currentFrame_Run],positionX,positionY,32*3,32*3);
 
        Running();
         StateMotionless();
-        if(is_jump){
-            changeBackgroundColor(white);
-            clearBackground(500,500);
+        if(littlehero.is_jump){
+//            changeBackgroundColor(white);
+//            clearBackground(500,500);
             drawImage(background,0,0,1000,500);
             if(direction.equals("right")){
-                drawImage(jump[currentFrame_jump],HeroPositionX,HeroPositionY,32*3,32*3);
+                drawImage(littlehero.jump[currentFrame_jump],littlehero.HeroPositionX,littlehero.HeroPositionY,32*3,32*3);
             }else {
-                drawImage(jump[currentFrame_jump],HeroPositionX + 32*3,HeroPositionY,-32*3,32*3);
+                drawImage(littlehero.jump[currentFrame_jump],littlehero.HeroPositionX + 32*3,littlehero.HeroPositionY,-32*3,32*3);
 
             }
         }
     }
     public void Running(){
 
-        if(is_left){
+        if(littlehero.is_left){
             drawImage(background,0,0,1000,500);
-            drawImage(run[currentFrame_Run],HeroPositionX+ 32*3,HeroPositionY,-32*3,32*3);
+            drawImage(littlehero.run[currentFrame_Run],littlehero.HeroPositionX+ 32*3,littlehero.HeroPositionY,-32*3,32*3);
 
         }else{
             drawImage(background,0,0,1000,500);
-            drawImage(run[currentFrame_Run],HeroPositionX,HeroPositionY,32*3,32*3);
+            drawImage(littlehero.run[currentFrame_Run],littlehero.HeroPositionX,littlehero.HeroPositionY,32*3,32*3);
 
         }
     }
 
     public void StateMotionless(){
-        if(!is_moving){
+        if(!littlehero.is_moving){
             changeBackgroundColor(white);
             clearBackground(500,500);
             drawImage(background,0,0,1000,500);
             if(direction.equals("right")){
-                drawImage(motionless[0],HeroPositionX,HeroPositionY ,32*3,32*3);
+                drawImage(motionless[0],littlehero.HeroPositionX,littlehero.HeroPositionY ,32*3,32*3);
 
             }else {
-                drawImage(motionless[0],HeroPositionX + 32*3,HeroPositionY,-32*3,32*3);
+                drawImage(motionless[0],littlehero.HeroPositionX + 32*3,littlehero.HeroPositionY,-32*3,32*3);
             }
             if(rest == 1){
                 changeBackgroundColor(white);
                 clearBackground(500,500);
                 drawImage(background,0,0,1000,500);
-                drawImage(motionless[currentFrame_rest],HeroPositionX + 32*3,HeroPositionY,-32*3,32*3);
+                drawImage(motionless[currentFrame_rest],littlehero.HeroPositionX + 32*3,littlehero.HeroPositionY,-32*3,32*3);
             }
         }
     }
     public void keyPressed(KeyEvent e){
         if(e.getKeyCode() == KeyEvent.VK_D){
-            is_moving = true;
-            is_left = false;
+            littlehero.is_moving = true;
+            littlehero.is_left = false;
             direction = "right";
             rest = 0;
         }
         if(e.getKeyCode() == KeyEvent.VK_A){
-            is_left = true;
-            is_moving = true;
+            littlehero.is_left = true;
+            littlehero.is_moving = true;
             direction = "left";
             rest = 0;
         }
         if(e.getKeyCode() == KeyEvent.VK_SPACE){
-           if(HeroPositionY == 300){
-               HeroVelocityY = -500;
-               is_jump = true;
+           if(littlehero.HeroPositionY == 300){
+               littlehero.HeroVelocityY = -500;
+               littlehero.is_jump = true;
            }
             rest = 0;
+//           一瞬间扭头
+           System.out.println(rest);
         }
     }
 
-
+// 往右走 和 空格冲突
     public void keyReleased(KeyEvent e){
-        is_moving = false;
+        littlehero.is_moving = false;
 //        if(e.getKeyCode() == KeyEvent.VK_SPACE){
 //           // is_jump = false;
 //        }
