@@ -13,7 +13,7 @@ import java.util.Random;
 import javax.imageio.*;
 import javax.sound.sampled.*;
 
-public abstract class GameEngine implements KeyListener, MouseListener, MouseMotionListener {
+public abstract class GameEngine implements KeyListener, MouseListener, MouseMotionListener{
     //-------------------------------------------------------
     // Game Engine Frame and Panel
     //-------------------------------------------------------
@@ -63,19 +63,15 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     // Functions for setting up the window
     //-------------------------------------------------------
     // Function to create the window and display it
-    public void setupWindow(int width, int height) {
+    public void setupWindow() {
         mFrame = new JFrame();
         mPanel = new GamePanel();
 
-        mWidth = width;
-        mHeight = height;
-
-        mFrame.setSize(width, height);
+        mFrame.setSize(mWidth, mHeight);
         mFrame.setLocation(200,200);
         mFrame.setTitle("Window");
         mFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mFrame.add(mPanel);
-        mFrame.setVisible(true);
 
         mPanel.setDoubleBuffered(true);
         mPanel.addMouseListener(this);
@@ -102,11 +98,17 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
                         }
                     }
                 });
-
-        // Resize the window (insets are just the boarders that the Operating System puts on the board)
-        Insets insets = mFrame.getInsets();
-        mFrame.setSize(width + insets.left + insets.right, height + insets.top + insets.bottom);
+        mFrame.addComponentListener( new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent componentEvent) {
+                // Resize the window to include insets (insets are just the boarders that the Operating System puts on the board)
+                Insets insets = mFrame.getInsets();
+                mFrame.setSize(mWidth + insets.left + insets.right, mHeight + insets.top + insets.bottom);
+            }
+        });
+        mFrame.setVisible(true);
     }
+
 
     public void setWindowSize(final int width, final int height) {
         mWidth = width;
@@ -152,10 +154,11 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
             @Override
             public void run() {
                 // Create the window
-                setupWindow(1000,500);
+                setupWindow();
             }
         });
     }
+
 
     // Create Game Function
     public static void createGame(GameEngine game, int framerate, int width, int height) {
