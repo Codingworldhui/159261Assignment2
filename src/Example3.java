@@ -3,9 +3,9 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-public class Example extends GameEngine{
+public class Example3 extends GameEngine{
     public static void main(String[] args) {
-        createGame(new Example());
+        createGame(new Example3());
     }
 
     Image background;
@@ -25,82 +25,38 @@ public class Example extends GameEngine{
     double animTime;
     Hero littlehero = new Hero();
     double gravity = 980;
-    int score;
-    Monster monster = new Monster();
-    ArrayList<Monster> monsters;
-    AudioClip audioClip;
     boolean gameover;
 
-    public void initScore() {
-        score = 0;
-    }
-
-    public void initAudio() {
-        audioClip = loadAudio("audio/pop.wav");
-    }
+    Monster boss = new Monster();
 
     public void initMonster() {
-        monsters = new ArrayList<>();
-        int numMonsters = 3;// 设置怪物数量
-
-        for (int i = 0;i < numMonsters;i++) {
-            Monster monster = new Monster();
-            monster.monsterPositionX = 500 + (i * 100);// 设置怪物的初始位置
-            monster.monsterPositionY = 300;
+            boss.monsterPositionX = 500 ;// 设置怪物的初始位置
+            boss.monsterPositionY = 120;
             // 加载怪物图像
-            Image monsterImage = loadImage("images/1_foguito.png");
-            for (int j = 0;j < 8;j++) {
-                monster.monsterImage = subImage(monsterImage,49 * j,0,50,50);
-            }
-            monsters.add(monster);// 将怪物添加到怪物列表中
-        }
+            boss.monsterImage = loadImage("images/sotrak_rewop_0.png");
     }
 
     public void updateMonster(double dt) {
-        for (Monster monster :monsters) {
-            // 更新每个怪物的位置
-            if (!monster.is_left && monster.monsterPositionX < 800) {
-                // 怪物向右移动
-                monster.monsterPositionX += 100 * dt;
-                if (monster.monsterPositionX >= 800) {
-                    monster.is_left = true;
-                }
-            } else if (monster.is_left && monster.monsterPositionX > 300) {
-                // 怪物向左移动
-                monster.monsterPositionX -= 100 * dt;
-                if (monster.monsterPositionX <= 300) {
-                    monster.is_left = false;
-                }
+        if (!boss.is_left && boss.monsterPositionX < 800) {
+            // 怪物向右移动
+            boss.monsterPositionX += 100 * dt;
+            if (boss.monsterPositionX >= 800) {
+                boss.is_left = true;
+            }
+        } else if (boss.is_left && boss.monsterPositionX > 300) {
+            // 怪物向左移动
+            boss.monsterPositionX -= 100 * dt;
+            if (boss.monsterPositionX <= 300) {
+                boss.is_left = false;
             }
         }
     }
 
-    //只有跳起且满足distance的条件分数才会加1
-    //不跳起但满足distance怪物会消失一下
     public void drawMonster() {
-//        if(monster.is_left) {
-//            drawImage(monster.monsterImage,monster.monsterPositionX,monster.monsterPositionY);
-//        }
-        for(Monster monster : monsters) {
-            if (!monster.is_appear) {
-                if (distance(littlehero.HeroPositionX, littlehero.HeroPositionY, monster.monsterPositionX, monster.monsterPositionY) > 100)  {
-                    drawImage(monster.monsterImage, monster.monsterPositionX, monster.monsterPositionY);
-                }
-
-                else {
-                    if (distance(littlehero.HeroPositionX, littlehero.HeroPositionY,
-                            monster.monsterPositionX, monster.monsterPositionY) <= 100) {
-                        healthCount--;
-                        littlehero.be_attacked = true;
-                        playAudio(audioClip);
-                        monster.is_appear = true;
-                        score++;
-                        monster.setDefeated(true);
-                    }
-                }
-            }
-        }
+        drawImage(boss.monsterImage, boss.monsterPositionX, boss.monsterPositionY);
     }
+
+
 
     public void init(){
         gameover = false;
@@ -118,16 +74,10 @@ public class Example extends GameEngine{
         littlehero.die = new Image[7];
         littlehero.Be_attacked = new Image[4];
         littlehero.heroImg = loadImage("src/adventurer.png");
-        background = loadImage("src/background1.png");
-        initPortal();
+        background = loadImage("src/background3.png");
 
         initHealth();
 
-        initSun();
-
-        initScore();
-        initAudio();
-        initMonster();
         for (int i = 0; i < 13; i++) {
             motionless[i] = subImage(littlehero.heroImg,32*i,0,32,32);
         }
@@ -151,6 +101,8 @@ public class Example extends GameEngine{
             littlehero.die[k] = subImage(littlehero.heroImg,32*k,32*7,32,32);
         }
 
+        initMonster();
+
     }
 
 
@@ -163,9 +115,8 @@ public class Example extends GameEngine{
     @Override
     public void update(double dt) {
         if(!gameover){
-            updatePortal(dt);
-            updateSun(dt);
             animTime += dt;
+
             if (littlehero.is_moving) {
                 if (littlehero.is_left) {
                     littlehero.HeroPositionX -= littlehero.HeroVelocityX * dt;
@@ -197,13 +148,7 @@ public class Example extends GameEngine{
                 }
             }
 
-            updateMonster(dt);
 
-            for (Monster monster : monsters) {
-                if(!monster.is_appear) {
-                    monster.updateFireballs(dt);
-                }
-            }
             if (littlehero.be_attacked){
                 currentFrame_Be_attacked = getFrame(0.75,4);
                 if(currentFrame_Be_attacked >= 3){
@@ -217,33 +162,13 @@ public class Example extends GameEngine{
                     gameover = true;
                 }
             }
-            // 英雄和火球之间的碰撞检测
-            for (int i = 0; i < monsters.size(); i++) {
-                Monster monster = monsters.get(i);
-                if (!monster.is_appear) {
-                    for (int j = 0; j < monster.fireballs.size(); j++) {
-                        FireBall fireball = monster.fireballs.get(j);
-                        // 英雄和火球之间的碰撞
-                        if (fireball.positionX >= littlehero.HeroPositionX &&
-                                fireball.positionX <= littlehero.HeroPositionX + 32 * 3 &&
-                                fireball.positionY >= littlehero.HeroPositionY &&
-                                fireball.positionY <= littlehero.HeroPositionY + 32 * 3) {
-                            // 英雄被击中
-                            monster.fireballs.remove(j);
-                            healthCount--;
-                            littlehero.be_attacked = true;
-                            break; // Exit the loop since fireball is removed
-                        }else{
-                            monster.removeFireball();
-                        }
-                    }
-                }
-            }
+
         }
         if(healthCount < 0){
             littlehero.is_alive = false;
         }
 
+        updateMonster(dt);
 
     }
 
@@ -254,52 +179,26 @@ public class Example extends GameEngine{
             drawImage(background,0,0,1000,500);
             //   drawRectangle(littlehero.HeroPositionX,littlehero.HeroPositionY,32*3,32*3);
             changeColor(red);
-            drawPortal();
             drawHealth();
 
-            drawSun();
             Running();
             StateMotionless();
             Jumping();
             Attack();
             Die();
             Be_attack();
-            if(!monster.is_appear) {
-                drawMonster();
-            }
 
-            changeColor(white);
-            drawText(50, 50, "Score: "+score);
-
-            for (Monster monster : monsters) {
-                monster.drawFireballs(mGraphics);
-            }
         }else {
             changeColor(white);
             drawText(300,220,"GAME OVER!","Arial",70);
         }
 
-       // drawLine(littlehero.HeroPositionX + 0.5 * 32*3,littlehero.HeroPositionY + 0.7 * 32*3 ,littlehero.HeroPositionX + 0.5 * 32*3,littlehero.HeroPositionY + 0.7 * 32*3,5);
+        // drawLine(littlehero.HeroPositionX + 0.5 * 32*3,littlehero.HeroPositionY + 0.7 * 32*3 ,littlehero.HeroPositionX + 0.5 * 32*3,littlehero.HeroPositionY + 0.7 * 32*3,5);
 
+        drawMonster();
 
     }
 
-    public void initPortal(){
-        portalImage = loadImage("src/teleport.png");
-
-        portalDown = new Image[5];
-        for (int i = 0; i < 5; i++) {
-            portalDown[i] = subImage(portalImage,0,256*i,512,256);
-        }
-    }
-    int portalFrame;
-    public void updatePortal(double dt){
-        portalFrame = getFrame(2.0,4);
-    }
-    public void drawPortal(){
-
-        drawImage(portalDown[portalFrame],800,340,128*1.5,64*1.5);
-    }
 
     //health
     int healthCount;
@@ -324,89 +223,9 @@ public class Example extends GameEngine{
     double sunAngle[];
     Image sun;
     Image sunImage[];
-    public void initSun(){
-        sun = loadImage("src/sun.png");
-        maxSuns = 5;
-        sunX = new double[maxSuns];
-        sunY = new double[maxSuns];
-        sunVX = new double[maxSuns];
-        sunVY = new double[maxSuns];
-        sunAngle = new double[maxSuns];
-        sunImage = new Image[3];
-        for (int i = 0; i < 3; i++) {
-            sunImage[i] = subImage(sun,50*i,0,50,50);
-        }
-        for (int i = 0; i < maxSuns; i++) {
-            newSun(i);
-        }
-    }
-    public void newSun(int i){
-        sunX[i] = rand(1000);
-        sunY[i] = 0;
 
-
-
-        // Random Target Position
-        double tx = rand(1000);
-        double ty = 500;
-
-        // Calculate velocity
-        sunVX[i] = tx - sunX[i];
-        sunVY[i] = ty - sunY[i];
-
-        // Calculate angle
-        sunAngle[i] = atan2(sunVX[i], -sunVY[i]) - 90;
-
-        // Rescale velocity
-        double l = length(sunVX[i], sunVY[i]);
-        sunVX[i] *= 80 / l;
-        sunVY[i] *= 80 / l;
-    }
-    int sunFrame;
-    public void updateSun(double dt){
-        sunFrame = getFrame(0.8,3);
-        for(int i = 0; i < maxSuns; i++) {
-            // Move Missile down
-            sunX[i] += sunVX[i]*dt;
-            sunY[i] += sunVY[i]*dt;
-
-            // Check if missile has reached the bottom of the screen
-            if(sunY[i] >= 500) {
-                newSun(i);
-            }
-           // drawLine(littlehero.HeroPositionX + 0.5 * 32*3,littlehero.HeroPositionY + 0.7 * 32*3 ,littlehero.HeroPositionX + 0.5 * 32*3,littlehero.HeroPositionY + 0.7 * 32*3,5);
-           // littlehero.HeroPositionX + 0.5 * 32*3,littlehero.HeroPositionY + 0.7 * 32*3   这是小英雄的圆心
-            if(distance(littlehero.HeroPositionX + 0.5 * 32*3,littlehero.HeroPositionY + 0.7 * 32*3 ,sunX[i],sunY[i]) < 25 + 32*0.5){
-                newSun(i);
-                healthCount--;
-                littlehero.be_attacked = true;
-            }
-        }
-    }
-    public void drawSun(){
-        for(int i = 0; i < maxSuns; i++) {
-
-            // Save Transform
-            saveCurrentTransform();
-
-
-            translate(sunX[i], sunY[i]);
-
-            // Rotate by sun Angle
-            rotate(sunAngle[i]);
-
-            // Draw Missile Image
-            drawImage(sunImage[sunFrame], -50, -50, 50, 50);
-
-
-            // Reset Transform
-            restoreLastTransform();
-        }
-    }
-
-    Image missileImage;
     public void Attack(){
-       // clearBackground(1000,500);
+        // clearBackground(1000,500);
 
         if(direction.equals("right")){
             switch (attackMode){
@@ -421,7 +240,7 @@ public class Example extends GameEngine{
                     break;
 
             }
-       }else {
+        }else {
             switch (attackMode){
                 case 1:
                     drawImage(littlehero.attack1[currentFrame_attack],littlehero.HeroPositionX + 32*3,littlehero.HeroPositionY,-32*3,32*3);
@@ -517,21 +336,21 @@ public class Example extends GameEngine{
             }
             rest = 0;
 //           一瞬间扭头
-           // System.out.println(rest);
+            // System.out.println(rest);
         }
         if(e.getKeyCode() == KeyEvent.VK_J){
             attackMode = 1;
             rest = 0;
-         //   littlehero.is_moving = true;
+            //   littlehero.is_moving = true;
         }
         if(e.getKeyCode() == KeyEvent.VK_K){
             attackMode = 2;
             rest = 0;
-           // littlehero.is_moving = true;
+            // littlehero.is_moving = true;
         } if(e.getKeyCode() == KeyEvent.VK_L){
             attackMode = 3;
             rest = 0;
-           // littlehero.is_moving = true;
+            // littlehero.is_moving = true;
         }
         if (e.getKeyCode()==KeyEvent.VK_O){
             littlehero.be_attacked=true;
