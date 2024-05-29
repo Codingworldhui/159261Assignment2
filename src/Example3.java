@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.geom.*;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.*;
 
 public class Example3 extends GameEngine {
@@ -9,6 +10,7 @@ public class Example3 extends GameEngine {
 //        createGame(new Example3());
 //    }
 
+    int score;
     Image background;
     Image portalImage;
     Image portalDown[];
@@ -57,6 +59,10 @@ public class Example3 extends GameEngine {
     AudioClip waveAudio = loadAudio("audio/wave.wav");
 
     ArrayList<Rectangle> bossAttackZones = new ArrayList<>();
+    ArrayList<Coin> coinList = new ArrayList<>();
+    Random rand = new Random();
+    // 金币数量
+    int NUM_COINS = 3;
 
     public void initAudio() {
         backgroundMusic = loadAudio("audio/Hitman.wav");
@@ -133,6 +139,23 @@ public class Example3 extends GameEngine {
                     break;
             }
         }
+        if (bossHealth <= 1500 && bossHealth >= 1400) {
+            dropCoins();
+        }
+    }
+
+    void dropCoins() {
+        for (int i = 0;i < NUM_COINS;i++) {
+            int coinX = rand.nextInt(800);
+            int coinY = 300;
+            coinList.add(new Coin(coinX,coinY));
+        }
+    }
+
+    void drawCoins() {
+        for (Coin coin :coinList) {
+            drawImage(coin.getImage(),coin.getCoinX(),coin.getCoinY(),30,30);
+        }
     }
 
     public void drawMonster() {
@@ -155,6 +178,7 @@ public class Example3 extends GameEngine {
     }
 
     public void init() {
+        score = 0;
         fireAudioPlayed = false;
         waveAudioPlayed = false;
         initAudio();
@@ -291,6 +315,18 @@ public class Example3 extends GameEngine {
         if (bossHealth <= 0) {
             gameWin = true;
         }
+
+        collectCoins();
+    }
+
+    void collectCoins() {
+        for (Coin coin :new ArrayList<>(coinList)) {
+            if (distance(littlehero.HeroPositionX, littlehero.HeroPositionY, coin.coinX, coin.coinY) < 20) {
+                // 角色和金币相交，获取分数并移除金币
+                coinList.remove(coin);
+                score++;
+            }
+        }
     }
 
     public int getFrame(double d, int num_frames) {
@@ -330,6 +366,9 @@ public class Example3 extends GameEngine {
                 mFrame.dispose();
             }
         }
+        drawCoins();
+        changeColor(white);
+        drawText(10, 30, "Score: " + score, "Arial", 20);
     }
 
     // wave
@@ -574,6 +613,30 @@ public class Example3 extends GameEngine {
 
         public Rectangle getBounds() {
             return new Rectangle((int) monsterPositionX, (int) monsterPositionY, 150, 150); // 增大怪物的体积
+        }
+    }
+
+    class Coin {
+        private int coinX;
+        private int coinY;
+        private Image coinImage;
+
+        public Coin(int coinX,int coinY) {
+            this.coinX = coinX;
+            this.coinY = coinY;
+            this.coinImage = loadImage("src/coin.png");
+        }
+
+        public int getCoinX() {
+            return coinX;
+        }
+
+        public int getCoinY() {
+            return coinY;
+        }
+
+        public Image getImage() {
+            return coinImage;
         }
     }
 }

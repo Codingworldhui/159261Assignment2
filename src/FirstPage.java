@@ -8,7 +8,6 @@ public class FirstPage extends JFrame {
 
     public FirstPage() {
         setTitle("Game");
-
         // 设置窗口大小
         setSize(1000, 500);
 
